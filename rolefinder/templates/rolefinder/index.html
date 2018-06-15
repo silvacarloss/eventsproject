@@ -1,14 +1,42 @@
 {% extends "rolefinder/header.html" %}
-{% block content %}        
-    {% if events %}
-        <h1>Meus eventos</h1>
-        <ul>
-        {% for event in events %}
-            <li><a href="{% url 'details' event.id %}">{{ event.title }}</a></li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p>No events are available.</p>
-    {% endif %}
-    <a class="ui black button" href="{% url 'new' %}">Novo evento</a>
+{% block content %}
+    <div style="margin-left:17vh; margin-top:5vh; margin-right:17vh;">
+        {% if events %}
+            <h1>
+                Meus eventos &nbsp; &nbsp; &nbsp; 
+                <a class="ui black button" href="{% url 'new' %}"><i class="angle plus icon"></i></a> 
+            </h1>            
+            <br>
+                {% for event in events %}
+                    <div class="ui items raised segment">
+                        <div class="item">
+                            <div class="ui small image">
+                                <img src="/static/img/photo_prev.png">
+                            </div>
+                            <div class="content">
+                                <div class="header">{{event.title}}</div>
+                                <div class="meta">
+                                <span class="price">R$ {{event.price}}</span>
+                                </div>
+                                <div class="description">
+                                <p>{{event.description}}</p>
+                                </div>
+                                <br>
+                                <a class="ui button" href="{% url 'details' event.id %}">
+                                    Detalhes
+                                    <i class="angle right icon"></i>
+                                </a>
+                                <a class="ui red button" href="{% url 'delete' event.id %}">
+                                    <i class="remove icon"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+        {% else %}
+            <p class="ui info message">Não existem eventos cadastrados. Clique no botão abaixo para inserir um novo evento.</p>
+            <a class="ui teal button" href="{% url 'new' %}">Adicionar evento &nbsp;<i class="angle plus icon"></i></a>
+        {% endif %}
+    </div>        
+    
 {% endblock content %}

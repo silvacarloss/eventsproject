@@ -1,7 +1,30 @@
 {% extends "rolefinder/header.html" %}
 {% block content %}
-    <h1>{{ event.title }}</h1>
-    <p>{{ event.description }}</p>
-    <p>{{ event.date }}</p>
-    <a href="{% url 'index' %}"> Voltar </a>
+    <div class="ui items" style="margin-left:12vh; margin-top:7vh;">
+            <div class="ui items">
+                <div class="item">
+                    <div class="image">
+                        <img src="/static/img/photo_prev.png">
+                    </div>
+                    <div class="content">
+                    <span class="header">{{ event.title }}</span>
+                    <div class="meta">
+                        <span>{{ event.description }}</span>
+                    </div>
+                    <div class="meta">
+                            <span>{{ event.address }}</span>
+                        </div>
+                    <div class="description">
+                        <p></p>
+                    </div>
+                    <div class="extra">
+                        {{ event.date }}
+                        {{ event.price }}
+                    </div>
+                    </div>
+                </div>
+            </div>
+        <br>
+        <a href="{% url 'index' %}" class="ui black button"> <i class="angle left icon"></i> Voltar </a>
+    </div>
 {% endblock content %}

@@ -4,7 +4,7 @@ from django.template import loader
 from .models import UserTag, EventTag, Tag, User, Event
 
 def index(request):
-    latest_event_list = Event.objects.order_by('-date')[:5]
+    latest_event_list = Event.objects.order_by('-date')
     template = loader.get_template('rolefinder/index.html')
     context = {
         'events' : latest_event_list,
@@ -31,6 +31,9 @@ def save(request):
     datetime += " " + request.POST['time']
     picture = request.POST['picture']
     price = request.POST['price']
+    tagsselected = request.POST['tagsselected']
+
+    tags_list = tagsselected.split(",")
 
     EventInstance = Event.objects.create(
         title = title,
@@ -40,6 +43,16 @@ def save(request):
         picture = "picture",
         price = price
     )
+    for x in range(1, tags_list.__len__()):
+        tag = get_object_or_404(Tag, pk = tags_list[x])
+        event_tag_instance = EventTag.objects.create(
+            tag = tag,
+            event = EventInstance 
+        )
 
+    return index(request)
+
+def delete(request, event_id):
+    Event.objects.filter(id=event_id).delete()
     return index(request)
 

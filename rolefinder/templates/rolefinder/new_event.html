@@ -39,7 +39,7 @@
                 <label for="price">Preço (R$)</label>
                 <input type="number" name="price" value="" />
             </div>
-            <div class="field">        
+            <div id="selected_tags" class="field">        
                 <label for="tags">Selecione as tags que representam este evento </label>
                 {% if tags_list %}
                     {% for tag in tags_list %} 
@@ -51,8 +51,9 @@
                     </div>
                 {% endif %}
             </div>
+        <input type="hidden" name="tagsselected" id="tagsselected">
+        <a href="{% url 'index' %}" class="ui button"> <i class="angle left icon"></i> Voltar </a>
         <input class="ui black button" type="submit" name="send" value="Salvar">
-        <input type="hidden" name="tagsselected">
         </form>
     </div>
 {% endblock content %}
