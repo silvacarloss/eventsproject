@@ -1,0 +1,58 @@
+{% extends "rolefinder/header.html" %}
+
+{% block content %}
+    <div style="width: 100vh; margin-top: 3vh; margin-left: 5vh;">
+        <h2 class="ui header"> Adicionar novo evento </h2>
+        <form class="ui form" action="{% url 'save' %}" method="post">
+                {% csrf_token %}
+            <div class="field">
+                <label for="title">Title</label>
+                <input type="text" name="title" placeholder="Digite o título" required>
+            </div>        
+
+            <div class="field">
+                <label for="description">Descrição</label>
+                <textarea name="description" rows="3" required></textarea>
+            </div>
+
+            <div class="field">
+                <label for="address">Endereço</label>
+                <input type="text" name="address" placeholder="Escreva aqui o endereço do evento" required>
+            </div>
+
+            <div class="field">
+                <label for="date">Data</label>
+                <input type="date" name="date" placeholder="Selecione a data" required>
+            </div>
+
+            <div class="field">
+                <label for="hour">Hora</label>
+                <input type="text" name="time" placeholder="Digite a hora (ex: 18:00)" required>
+            </div>
+
+            <div class="field">
+                <label for="picture">Foto promocional</label>
+                <input type="file" name="picture" value="Escolha a foto" />
+            </div>
+
+            <div class="field">        
+                <label for="price">Preço (R$)</label>
+                <input type="number" name="price" value="" />
+            </div>
+            <div class="field">        
+                <label for="tags">Selecione as tags que representam este evento </label>
+                {% if tags_list %}
+                    {% for tag in tags_list %} 
+                        <a selectedtag="none" onClick="selectItem(this)" class="ui label" id="{{tag.id}}" for="tag">{{tag.name}}</a>
+                    {% endfor %}
+                {% else %}
+                    <div class="ui info message">
+                        <p>Não existe nenhuma tag cadastrada. Contate o administrador</p>            
+                    </div>
+                {% endif %}
+            </div>
+        <input class="ui black button" type="submit" name="send" value="Salvar">
+        <input type="hidden" name="tagsselected">
+        </form>
+    </div>
+{% endblock content %}
